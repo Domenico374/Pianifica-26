@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agenda Speciale 2026</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <header class="header">
+      <div class="badge-year">2026</div>
+      <h1>Agenda di <span id="nomeDestinatario">Claudia</span></h1>
+      <!-- 🔽 CAMBIA QUI NOME E TESTO DEDICA -->
+      <p class="dedica">
+        Per te, perché ogni giorno abbia il suo spazio speciale 💛<br>
+        Con affetto, Domenico.
+      </p>
+      <!-- 🔼 -->
+    </header>
+
+    <!-- COPERTINA INIZIALE -->
+    <section class="cover" id="coverSection">
+      <p class="frase-giorno-label">Frase del giorno</p>
+      <p id="fraseDelGiorno" class="frase-giorno"></p>
+
+      <button id="entraBtn" class="btn-large">
+        ✨ Entra nella tua agenda
+      </button>
+    </section>
+
+    <!-- CONTENUTO AGENDA -->
+    <main id="agendaMain" class="hidden">
+      <section class="form-section">
+        <h2>Nuovo impegno</h2>
+        <form id="eventForm">
+          <div class="field-row">
+            <div class="field">
+              <label for="date">Data</label>
+              <input type="date" id="date" required>
+            </div>
+            <div class="field">
+              <label for="time">Ora</label>
+              <input type="time" id="time" required>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="title">Titolo</label>
+            <input type="text" id="title" placeholder="Es. Visita medico" required>
+          </div>
+
+          <div class="field">
+            <label for="description">Descrizione</label>
+            <textarea id="description" rows="2" placeholder="Note, indirizzi, dettagli..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-primary">Aggiungi impegno</button>
+        </form>
+      </section>
+
+      <section class="filter-section">
+        <h2>I tuoi impegni</h2>
+        <div class="field-row">
+          <div class="field">
+            <label for="filterDate">Filtra per data</label>
+            <input type="date" id="filterDate">
+          </div>
+          <button id="clearFilter" class="btn-secondary">Mostra tutti</button>
+        </div>
+      </section>
+
+      <section class="list-section">
+        <ul id="eventList" class="event-list">
+          <!-- generato da script.js -->
+        </ul>
+        <p id="emptyMessage" class="empty-message">
+          Nessun impegno ancora. Inizia ad aggiungerne uno! 😊
+        </p>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <small>Agenda creata con ❤️ da Domenico</small>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
