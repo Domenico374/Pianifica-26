@@ -1,0 +1,250 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(135deg, #ffe4f0, #e0f2ff);
+  color: #1f2933;
+}
+
+.app-container {
+  max-width: 720px;
+  margin: 30px auto;
+  background: #ffffff;
+  padding: 24px 18px 18px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+}
+
+/* HEADER */
+
+.header {
+  text-align: center;
+  margin-bottom: 16px;
+  position: relative;
+}
+
+.header h1 {
+  margin: 6px 0 0;
+  font-size: 1.9rem;
+}
+
+.dedica {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.badge-year {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #6366f1;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+}
+
+/* COPERTINA */
+
+.cover {
+  text-align: center;
+  padding: 18px 10px 20px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.9), rgba(224, 242, 254, 0.95));
+  border: 1px solid #e5e7eb;
+  margin-bottom: 10px;
+}
+
+.frase-giorno-label {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #9ca3af;
+  margin-bottom: 4px;
+}
+
+.frase-giorno {
+  font-size: 0.95rem;
+  font-style: italic;
+  color: #374151;
+  margin: 0 0 12px;
+}
+
+.btn-large {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  background: #ec4899;
+  color: white;
+  box-shadow: 0 6px 14px rgba(236, 72, 153, 0.35);
+}
+
+.btn-large:hover {
+  background: #db2777;
+}
+
+/* SEZIONI AGENDA */
+
+.hidden {
+  display: none;
+}
+
+h2 {
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+  margin-top: 18px;
+}
+
+.form-section,
+.filter-section,
+.list-section {
+  margin-bottom: 10px;
+}
+
+.field-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.field {
+  flex: 1;
+  min-width: 140px;
+}
+
+label {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 4px;
+  color: #4b5563;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid #d1d5db;
+  font-size: 0.95rem;
+}
+
+input:focus,
+textarea:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.15);
+}
+
+textarea {
+  resize: vertical;
+}
+
+/* BOTTONI */
+
+.btn-primary,
+.btn-secondary {
+  border: none;
+  border-radius: 999px;
+  padding: 9px 16px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.btn-primary {
+  background: #6366f1;
+  color: white;
+  width: 100%;
+}
+
+.btn-primary:hover {
+  background: #4f46e5;
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: #374151;
+  white-space: nowrap;
+}
+
+.btn-secondary:hover {
+  background: #d1d5db;
+}
+
+/* LISTA EVENTI */
+
+.event-list {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0;
+}
+
+.event-item {
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.event-main {
+  flex: 1;
+}
+
+.event-title {
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.event-meta {
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+.event-desc {
+  font-size: 0.85rem;
+  margin-top: 4px;
+}
+
+.event-actions {
+  display: flex;
+  align-items: center;
+}
+
+.btn-delete {
+  border: none;
+  background: #fee2e2;
+  color: #b91c1c;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+  background: #fecaca;
+}
+
+.empty-message {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #9ca3af;
+  margin-top: 8px;
+}
+
+/* FOOTER */
+
+.footer {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
