@@ -3,32 +3,56 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Agenda Speciale 2026</title>
+  <title>Pianifica-26 - La tua Agenda 2026</title>
+  
+  <!-- PWA Meta Tags -->
+  <meta name="description" content="Agenda elettronica intelligente per organizzare la tua vita nel 2026">
+  <meta name="theme-color" content="#5b68f0">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Pianifica-26">
+  
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json">
+  
+  <!-- Icone per dispositivi Apple -->
+  <link rel="apple-touch-icon" href="/icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/icons/icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="96x96" href="/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="128x128" href="/icons/icon-128x128.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/icons/icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/icons/icon-192x192.png">
+  <link rel="apple-touch-icon" sizes="384x384" href="/icons/icon-384x384.png">
+  <link rel="apple-touch-icon" sizes="512x512" href="/icons/icon-512x512.png">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-192x192.png">
+  <link rel="shortcut icon" href="/icons/icon-192x192.png">
+  
+  <!-- CSS -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="app-container">
-  <header class="header">
-    <div class="badge-year">2026</div>
-
-    <h1>La tua Agenda 2026</h1>
-
-    <p class="dedica">
-      Per te, perché ogni giorno abbia il suo spazio speciale 💛<br>
-          </p>
-  </header>
-
-
+    <header class="header">
+      <div class="badge-year">2026</div>
+      <h1>La tua Agenda 2026</h1>
+      <p class="dedica">
+        Per te, perché ogni giorno abbia il suo spazio speciale 💛<br>
+      </p>
+    </header>
+    
     <!-- COPERTINA INIZIALE -->
     <section class="cover" id="coverSection">
       <p class="frase-giorno-label">Frase del giorno</p>
       <p id="fraseDelGiorno" class="frase-giorno"></p>
-
       <button id="entraBtn" class="btn-large">
         ✨ Entra nella tua agenda
       </button>
     </section>
-
+    
     <!-- CONTENUTO AGENDA -->
     <main id="agendaMain" class="hidden">
       <section class="form-section">
@@ -44,21 +68,18 @@
               <input type="time" id="time" required>
             </div>
           </div>
-
           <div class="field">
             <label for="title">Titolo</label>
             <input type="text" id="title" placeholder="Es. Visita medico" required>
           </div>
-
           <div class="field">
             <label for="description">Descrizione</label>
             <textarea id="description" rows="2" placeholder="Note, indirizzi, dettagli..."></textarea>
           </div>
-
           <button type="submit" class="btn-primary">Aggiungi impegno</button>
         </form>
       </section>
-
+      
       <section class="filter-section">
         <h2>I tuoi impegni</h2>
         <div class="field-row">
@@ -69,7 +90,7 @@
           <button id="clearFilter" class="btn-secondary">Mostra tutti</button>
         </div>
       </section>
-
+      
       <section class="list-section">
         <ul id="eventList" class="event-list">
           <!-- generato da script.js -->
@@ -79,12 +100,226 @@
         </p>
       </section>
     </main>
-
+    
     <footer class="footer">
       <small>Agenda creata con ❤️ da Domenico</small>
     </footer>
   </div>
-
+  
+  <!-- Script principale -->
   <script src="script.js"></script>
+  
+  <!-- PWA Installation & Service Worker -->
+  <script>
+    // ========================================
+    // REGISTRAZIONE SERVICE WORKER
+    // ========================================
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/service-worker.js')
+          .then((registration) => {
+            console.log('✅ Service Worker registrato:', registration.scope);
+            
+            // Controlla aggiornamenti ogni ora
+            setInterval(() => {
+              registration.update();
+            }, 60 * 60 * 1000);
+          })
+          .catch((error) => {
+            console.log('❌ Errore Service Worker:', error);
+          });
+      });
+    }
+
+    // ========================================
+    // PULSANTE INSTALLAZIONE APP
+    // ========================================
+    let deferredPrompt;
+    let installButton;
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      console.log('✅ Evento beforeinstallprompt attivato');
+      e.preventDefault();
+      deferredPrompt = e;
+      
+      // Crea il pulsante di installazione
+      showInstallButton();
+    });
+
+    function showInstallButton() {
+      // Rimuovi pulsante esistente se presente
+      if (installButton) {
+        installButton.remove();
+      }
+      
+      // Crea nuovo pulsante
+      installButton = document.createElement('button');
+      installButton.innerHTML = `
+        <span style="font-size: 20px;">📱</span>
+        <span style="margin-left: 8px;">Installa App</span>
+      `;
+      
+      installButton.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        padding: 14px 24px;
+        background: linear-gradient(135deg, #5b68f0 0%, #7b85ff 100%);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 15px;
+        box-shadow: 0 6px 20px rgba(91, 104, 240, 0.4);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+        animation: slideIn 0.5s ease;
+      `;
+      
+      // Effetto hover
+      installButton.addEventListener('mouseenter', () => {
+        installButton.style.transform = 'translateY(-2px)';
+        installButton.style.boxShadow = '0 8px 25px rgba(91, 104, 240, 0.5)';
+      });
+      
+      installButton.addEventListener('mouseleave', () => {
+        installButton.style.transform = 'translateY(0)';
+        installButton.style.boxShadow = '0 6px 20px rgba(91, 104, 240, 0.4)';
+      });
+      
+      // Click per installare
+      installButton.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          
+          const { outcome } = await deferredPrompt.userChoice;
+          console.log(`Scelta utente: ${outcome}`);
+          
+          if (outcome === 'accepted') {
+            console.log('✅ App installata!');
+          } else {
+            console.log('❌ Installazione rifiutata');
+          }
+          
+          deferredPrompt = null;
+          installButton.remove();
+        }
+      });
+      
+      // Aggiungi animazione CSS
+      const style = document.createElement('style');
+      style.textContent = `
+        @keyframes slideIn {
+          from {
+            transform: translateX(400px);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+      `;
+      document.head.appendChild(style);
+      
+      document.body.appendChild(installButton);
+    }
+
+    // Quando l'app viene installata
+    window.addEventListener('appinstalled', () => {
+      console.log('🎉 PWA installata con successo!');
+      
+      if (installButton) {
+        installButton.remove();
+      }
+      
+      // Mostra messaggio di conferma
+      const toast = document.createElement('div');
+      toast.textContent = '🎉 App installata con successo!';
+      toast.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 16px 24px;
+        background: #10b981;
+        color: white;
+        border-radius: 12px;
+        font-weight: 600;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        z-index: 10001;
+        animation: slideIn 0.5s ease;
+      `;
+      
+      document.body.appendChild(toast);
+      
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.5s';
+        setTimeout(() => toast.remove(), 500);
+      }, 3000);
+    });
+
+    // ========================================
+    // NOTIFICA AGGIORNAMENTO DISPONIBILE
+    // ========================================
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        const toast = document.createElement('div');
+        toast.innerHTML = `
+          <div style="display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+            <span>✨ Nuova versione disponibile!</span>
+            <button id="reloadBtn" style="
+              background: white;
+              color: #5b68f0;
+              border: none;
+              padding: 8px 16px;
+              border-radius: 6px;
+              font-weight: 600;
+              cursor: pointer;
+            ">Ricarica</button>
+          </div>
+        `;
+        
+        toast.style.cssText = `
+          position: fixed;
+          top: 20px;
+          left: 50%;
+          transform: translateX(-50%);
+          padding: 16px 24px;
+          background: #5b68f0;
+          color: white;
+          border-radius: 12px;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+          z-index: 10001;
+          animation: slideDown 0.5s ease;
+        `;
+        
+        const reloadStyle = document.createElement('style');
+        reloadStyle.textContent = `
+          @keyframes slideDown {
+            from {
+              transform: translateX(-50%) translateY(-100px);
+              opacity: 0;
+            }
+            to {
+              transform: translateX(-50%) translateY(0);
+              opacity: 1;
+            }
+          }
+        `;
+        document.head.appendChild(reloadStyle);
+        
+        document.body.appendChild(toast);
+        
+        document.getElementById('reloadBtn').addEventListener('click', () => {
+          window.location.reload();
+        });
+      });
+    }
+  </script>
 </body>
 </html>
